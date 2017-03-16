@@ -75,10 +75,8 @@ class Receiver extends Component {
     let fileList = [];
 
     if (!!e.dataTransfer) {
-      console.log("DATA TRANFER TYPE");
       fileList = e.dataTransfer.files || [];
     } else if (!!e.target) {
-      console.log("TARGET TYPE");
       fileList = e.target.files || [];
     }
 
@@ -97,19 +95,24 @@ class Receiver extends Component {
   }
 
   open() {
-    this.inputRef.click();
+    if (this.inputRef) {
+      this.inputRef.click();
+    } else {
+      console.log("Receiver drop area must be visible")
+    }
   }
 
   render() {
-    const { isOpen, customClass, style, children } = this.props;
+    const { isOpen, customClass, style, children, accept, multiple } = this.props;
 
     return (
       isOpen ? (
           <div className={classNames(customClass)} style={style}>
             <input
-              type='file'
+              style={{display: 'none'}}
+              type={accept}
               ref={(ref) => this.inputRef = ref}
-              multiple
+              multiple={multiple}
               onChange={this.onFileDrop}
             />
             {children}
@@ -134,6 +137,13 @@ Receiver.propTypes = {
   onDragLeave: PropTypes.func.isRequired,
   onFileDrop: PropTypes.func.isRequired,
   style: PropTypes.object,
+  accept: PropTypes.string,
+  multiple: PropTypes.bool
+};
+
+Receiver.defaultProps = {
+  accept: 'image/*',
+  multiple: true
 };
 
 export default Receiver;
