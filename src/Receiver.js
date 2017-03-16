@@ -95,12 +95,22 @@ class Receiver extends Component {
     this.props.onFileDrop(e, files);
   }
 
+  open() {
+    this.inputRef.click();
+  }
+
   render() {
     const { isOpen, customClass, style, children } = this.props;
 
     return (
       isOpen ? (
           <div className={classNames(customClass)} style={style}>
+            <input
+              type='file'
+              ref={(ref) => this.inputRef = ref}
+              multiple
+              onChange={this.onFileDrop}
+            />
             {children}
           </div>
         ) : null
