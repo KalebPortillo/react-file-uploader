@@ -12,6 +12,7 @@ class Receiver extends Component {
     this.onDragOver = this.onDragOver.bind(this);
     this.onDragLeave = this.onDragLeave.bind(this);
     this.onFileDrop = this.onFileDrop.bind(this);
+    this.open = this.open.bind(this);
 
     // this is to monitor the hierarchy
     // for window onDragEnter event
