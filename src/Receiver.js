@@ -71,16 +71,22 @@ class Receiver extends Component {
 
     const files = [];
 
-    if (!!e.dataTransfer) {
-      const fileList = e.dataTransfer.files || [];
+    let fileList = [];
 
-      for (let i = 0; i < fileList.length; i ++) {
-        fileList[i].id = shortid.generate();
-        fileList[i].status = status.PENDING;
-        fileList[i].progress = 0;
-        fileList[i].src = null;
-        files.push(fileList[i]);
-      }
+    if (!!e.dataTransfer) {
+      console.log("DATA TRANFER TYPE");
+      fileList = e.dataTransfer.files || [];
+    } else if (!!e.target) {
+      console.log("TARGET TYPE");
+      fileList = e.target.files || [];
+    }
+
+    for (let i = 0; i < fileList.length; i++) {
+      fileList[i].id = shortid.generate();
+      fileList[i].status = status.PENDING;
+      fileList[i].progress = 0;
+      fileList[i].src = null;
+      files.push(fileList[i]);
     }
 
     // reset drag level once dropped
@@ -94,10 +100,10 @@ class Receiver extends Component {
 
     return (
       isOpen ? (
-        <div className={classNames(customClass)} style={style}>
-          {children}
-        </div>
-      ) : null
+          <div className={classNames(customClass)} style={style}>
+            {children}
+          </div>
+        ) : null
     );
   }
 }
