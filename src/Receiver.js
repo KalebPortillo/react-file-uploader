@@ -110,7 +110,8 @@ class Receiver extends Component {
           <div className={classNames(customClass)} style={style}>
             <input
               style={{display: 'none'}}
-              type={accept}
+              type='file'
+              accept={accept}
               ref={(ref) => this.inputRef = ref}
               multiple={multiple}
               onChange={this.onFileDrop}
